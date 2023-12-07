@@ -47,7 +47,7 @@ func main() {
 				case 'T':
 					num = 10
 				case 'J':
-					num = 11
+					num = 1
 				case 'Q':
 					num = 12
 				case 'K':
@@ -58,6 +58,19 @@ func main() {
 			}
 			cards[num]++
 			cardVals = append(cardVals, num)
+		}
+		jokerAmount, hasJokers := cards[1]
+		if hasJokers {
+			delete(cards, 1)
+			maxAmount := 0
+			var key int
+			for k, v := range cards {
+				if v > maxAmount {
+					maxAmount = v
+					key = k
+				}
+			}
+			cards[key] += jokerAmount
 		}
 		var handType int
 		switch len(cards) {
